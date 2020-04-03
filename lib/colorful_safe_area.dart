@@ -1,5 +1,7 @@
 library colorful_safe_area;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ColorfulSafeArea extends StatelessWidget {
@@ -54,6 +56,7 @@ class ColorfulSafeArea extends StatelessWidget {
           color: color,
           top: top,
           bottom: bottom,
+          minimum: minimum,
         ),
         _LeftAndRight(
           color: color,
@@ -61,6 +64,7 @@ class ColorfulSafeArea extends StatelessWidget {
           top: top,
           right: right,
           bottom: bottom,
+          minimum: minimum,
         ),
       ],
     );
@@ -73,11 +77,13 @@ class _TopAndBottom extends StatelessWidget {
     @required this.color,
     @required this.top,
     @required this.bottom,
+    @required this.minimum,
   }) : super(key: key);
 
   final Color color;
   final bool top;
   final bool bottom;
+  final EdgeInsets minimum;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +96,7 @@ class _TopAndBottom extends StatelessWidget {
         children: <Widget>[
           (top)
               ? Container(
-                  height: padding.top,
+                  height: max(padding.top, minimum.top),
                   color: color,
                 )
               : Container(
@@ -105,7 +111,7 @@ class _TopAndBottom extends StatelessWidget {
           ),
           (bottom)
               ? Container(
-                  height: padding.bottom,
+                  height: max(padding.bottom, minimum.bottom),
                   color: color,
                 )
               : Container(
@@ -126,6 +132,7 @@ class _LeftAndRight extends StatelessWidget {
     @required this.top,
     @required this.right,
     @required this.bottom,
+    @required this.minimum,
   }) : super(key: key);
 
   final Color color;
@@ -133,6 +140,7 @@ class _LeftAndRight extends StatelessWidget {
   final bool top;
   final bool right;
   final bool bottom;
+  final EdgeInsets minimum;
 
   @override
   Widget build(BuildContext context) {
@@ -147,14 +155,14 @@ class _LeftAndRight extends StatelessWidget {
               ? Column(
                   children: <Widget>[
                     Container(
-                      width: padding.left,
+                      width: max(padding.left, minimum.left),
                       height: (top)
                           ? MediaQuery.of(context).size.height / 2 - padding.top
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
                     Container(
-                      width: padding.left,
+                      width: max(padding.left, minimum.left),
                       height: (bottom)
                           ? MediaQuery.of(context).size.height / 2 -
                               padding.bottom
@@ -177,14 +185,14 @@ class _LeftAndRight extends StatelessWidget {
               ? Column(
                   children: <Widget>[
                     Container(
-                      width: padding.right,
+                      width: max(padding.right, minimum.right),
                       height: (top)
                           ? MediaQuery.of(context).size.height / 2 - padding.top
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
                     Container(
-                      width: padding.right,
+                      width: max(padding.right, minimum.right),
                       height: (bottom)
                           ? MediaQuery.of(context).size.height / 2 -
                               padding.bottom
