@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
         body: ColorfulSafeArea(
           // allowOverflow: true,
           // bottom: false,
-          minimum: EdgeInsets.all(100),
+          minimum: EdgeInsets.only(top: 10, left: 20, right: 300, bottom: 200),
           color: Colors.white.withOpacity(0.7),
           child: ListView.builder(
             itemBuilder: (context, index) {

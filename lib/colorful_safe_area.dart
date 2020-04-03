@@ -154,10 +154,14 @@ class _LeftAndRight extends StatelessWidget {
           (left)
               ? Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: max(padding.top, minimum.top),
+                    ),
                     Container(
                       width: max(padding.left, minimum.left),
                       height: (top)
-                          ? MediaQuery.of(context).size.height / 2 - padding.top
+                          ? MediaQuery.of(context).size.height / 2 -
+                              max(padding.top, minimum.top)
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
@@ -165,7 +169,7 @@ class _LeftAndRight extends StatelessWidget {
                       width: max(padding.left, minimum.left),
                       height: (bottom)
                           ? MediaQuery.of(context).size.height / 2 -
-                              padding.bottom
+                              max(padding.bottom, minimum.bottom)
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
@@ -184,10 +188,14 @@ class _LeftAndRight extends StatelessWidget {
           (right)
               ? Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: max(padding.top, minimum.top),
+                    ),
                     Container(
                       width: max(padding.right, minimum.right),
                       height: (top)
-                          ? MediaQuery.of(context).size.height / 2 - padding.top
+                          ? MediaQuery.of(context).size.height / 2 -
+                              max(padding.top, minimum.top)
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
@@ -195,7 +203,7 @@ class _LeftAndRight extends StatelessWidget {
                       width: max(padding.right, minimum.right),
                       height: (bottom)
                           ? MediaQuery.of(context).size.height / 2 -
-                              padding.bottom
+                              max(padding.bottom, minimum.bottom)
                           : MediaQuery.of(context).size.height / 2,
                       color: color,
                     ),
