@@ -3,34 +3,87 @@ library colorful_safe_area;
 import 'package:flutter/material.dart';
 
 class ColorfulSafeArea extends StatelessWidget {
-  final Widget child;
-  final Color color;
-  final bool allowOverflow;
-  final bool bottom;
-
   const ColorfulSafeArea({
     Key key,
-    @required this.child,
     this.color = Colors.transparent,
     this.allowOverflow = false,
-    this.bottom = false,
-  }) : super(key: key);
+    this.bottom = true,
+    this.left = true,
+    this.top = true,
+    this.right = true,
+
+    //TODO: implement minimum
+    this.minimum = EdgeInsets.zero,
+
+    //TODO: implement maintainBottomViewPadding
+    this.maintainBottomViewPadding = false,
+    @required this.child,
+  })  : assert(left != null),
+        assert(top != null),
+        assert(right != null),
+        assert(bottom != null),
+        super(key: key);
+
+  final Color color;
+  final bool allowOverflow;
+
+  final bool left;
+  final bool top;
+  final bool right;
+  final bool bottom;
+  final EdgeInsets minimum;
+  final bool maintainBottomViewPadding;
+  final Widget child;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        (allowOverflow) ? child : SafeArea(child: child),
-        _TopAndBottom(color: color),
-        _LeftAndRight(color: color),
+        (allowOverflow)
+            ? child
+            : SafeArea(
+                left: left,
+                top: top,
+                right: right,
+                bottom: bottom,
+                minimum: minimum,
+                maintainBottomViewPadding: maintainBottomViewPadding,
+                child: child,
+              ),
+        _TopAndBottom(
+          color: color,
+          left: left,
+          top: top,
+          right: right,
+          bottom: bottom,
+        ),
+        _LeftAndRight(
+          color: color,
+          left: left,
+          top: top,
+          right: right,
+          bottom: bottom,
+        ),
       ],
     );
   }
 }
 
 class _TopAndBottom extends StatelessWidget {
-  final Color color;
+  const _TopAndBottom({
+    Key key,
+    @required this.color,
+    @required this.left,
+    @required this.top,
+    @required this.right,
+    @required this.bottom,
+  }) : super(key: key);
 
-  const _TopAndBottom({Key key, this.color}) : super(key: key);
+  final Color color;
+  final bool left;
+  final bool top;
+  final bool right;
+  final bool bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +94,30 @@ class _TopAndBottom extends StatelessWidget {
     return IgnorePointer(
       child: Column(
         children: <Widget>[
-          Container(
-            height: padding.top,
-            color: color,
-          ),
+          (top)
+              ? Container(
+                  height: padding.top,
+                  color: color,
+                )
+              : Container(
+                  height: 0.0,
+                  width: 0.0,
+                ),
           Expanded(
             child: Container(
               height: 0.0,
               width: 0.0,
-              color: Colors.transparent,
             ),
           ),
-          Container(
-            height: padding.bottom,
-            color: color,
-          ),
+          (bottom)
+              ? Container(
+                  height: padding.bottom,
+                  color: color,
+                )
+              : Container(
+                  height: 0.0,
+                  width: 0.0,
+                ),
         ],
       ),
     );
@@ -63,9 +125,20 @@ class _TopAndBottom extends StatelessWidget {
 }
 
 class _LeftAndRight extends StatelessWidget {
-  final Color color;
+  const _LeftAndRight({
+    Key key,
+    @required this.color,
+    @required this.left,
+    @required this.top,
+    @required this.right,
+    @required this.bottom,
+  }) : super(key: key);
 
-  const _LeftAndRight({Key key, this.color}) : super(key: key);
+  final Color color;
+  final bool left;
+  final bool top;
+  final bool right;
+  final bool bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -76,41 +149,60 @@ class _LeftAndRight extends StatelessWidget {
     return IgnorePointer(
       child: Row(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                width: padding.left,
-                height: MediaQuery.of(context).size.height / 2 - padding.top,
-                color: color,
-              ),
-              Container(
-                width: padding.left,
-                height: MediaQuery.of(context).size.height / 2 - padding.bottom,
-                color: color,
-              ),
-            ],
-          ),
+          (left)
+              ? Column(
+                  children: <Widget>[
+                    Container(
+                      width: padding.left,
+                      height: (top)
+                          ? MediaQuery.of(context).size.height / 2 - padding.top
+                          : MediaQuery.of(context).size.height / 2,
+                      color: color,
+                    ),
+                    Container(
+                      width: padding.left,
+                      height: (bottom)
+                          ? MediaQuery.of(context).size.height / 2 -
+                              padding.bottom
+                          : MediaQuery.of(context).size.height / 2,
+                      color: color,
+                    ),
+                  ],
+                )
+              : Container(
+                  height: 0.0,
+                  width: 0.0,
+                ),
           Expanded(
             child: Container(
               height: 0.0,
               width: 0.0,
-              color: Colors.transparent,
             ),
           ),
-          Column(
-            children: <Widget>[
-              Container(
-                width: padding.right,
-                height: MediaQuery.of(context).size.height / 2 - padding.top,
-                color: color,
-              ),
-              Container(
-                width: padding.right,
-                height: MediaQuery.of(context).size.height / 2 - padding.bottom,
-                color: color,
-              ),
-            ],
-          ),
+          (right)
+              ? Column(
+                  children: <Widget>[
+                    Container(
+                      width: padding.right,
+                      height: (top)
+                          ? MediaQuery.of(context).size.height / 2 - padding.top
+                          : MediaQuery.of(context).size.height / 2,
+                      color: color,
+                    ),
+                    Container(
+                      width: padding.right,
+                      height: (bottom)
+                          ? MediaQuery.of(context).size.height / 2 -
+                              padding.bottom
+                          : MediaQuery.of(context).size.height / 2,
+                      color: color,
+                    ),
+                  ],
+                )
+              : Container(
+                  height: 0.0,
+                  width: 0.0,
+                ),
         ],
       ),
     );

@@ -21,7 +21,8 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.blue,
         body: ColorfulSafeArea(
-          allowOverflow: true,
+          // allowOverflow: true,
+          bottom: false,
           color: Colors.white.withOpacity(0.7),
           child: ListView.builder(
             itemBuilder: (context, index) {
