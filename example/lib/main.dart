@@ -19,20 +19,21 @@ class MyHomePage extends StatelessWidget {
     int numberOfTiles = 100;
 
     return Scaffold(
+        backgroundColor: Colors.blue,
         body: ColorfulSafeArea(
-      allowOverflow: true,
-      color: Colors.green.withOpacity(0.5),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.all(10),
-            width: 300,
-            height: 200,
-            color: Colors.red,
-          );
-        },
-        itemCount: numberOfTiles,
-      ),
-    ));
+          allowOverflow: true,
+          color: Colors.white.withOpacity(0.7),
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.all(10),
+                width: 300,
+                height: 200,
+                color: Colors.red,
+              );
+            },
+            itemCount: numberOfTiles,
+          ),
+        ));
   }
 }
