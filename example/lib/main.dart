@@ -21,7 +21,8 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: ColorfulSafeArea(
-        // allowOverflow: true,
+        allowOverflow: true,
+        overflowTappable: true,
         bottom: false,
         minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
         color: Colors.white.withOpacity(0.7),

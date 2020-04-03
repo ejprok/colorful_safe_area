@@ -9,6 +9,7 @@ class ColorfulSafeArea extends StatelessWidget {
     Key key,
     this.color = Colors.transparent,
     this.allowOverflow = false,
+    this.overflowTappable = false,
     this.bottom = true,
     this.left = true,
     this.top = true,
@@ -28,6 +29,7 @@ class ColorfulSafeArea extends StatelessWidget {
 
   final Color color;
   final bool allowOverflow;
+  final bool overflowTappable;
 
   final bool left;
   final bool top;
@@ -63,17 +65,13 @@ class ColorfulSafeArea extends StatelessWidget {
               ),
         _TopAndBottom(
           color: color,
-          top: top,
-          bottom: bottom,
           padding: padding,
+          overflowTappable: overflowTappable,
         ),
         _LeftAndRight(
           color: color,
-          left: left,
-          top: top,
-          right: right,
-          bottom: bottom,
           padding: padding,
+          overflowTappable: overflowTappable,
         ),
       ],
     );
@@ -84,19 +82,18 @@ class _TopAndBottom extends StatelessWidget {
   const _TopAndBottom({
     Key key,
     @required this.color,
-    @required this.top,
-    @required this.bottom,
     @required this.padding,
+    @required this.overflowTappable,
   }) : super(key: key);
 
   final Color color;
-  final bool top;
-  final bool bottom;
   final EdgeInsets padding;
+  final bool overflowTappable;
 
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
+      ignoring: overflowTappable,
       child: Column(
         children: <Widget>[
           Container(
@@ -123,23 +120,18 @@ class _LeftAndRight extends StatelessWidget {
   const _LeftAndRight({
     Key key,
     @required this.color,
-    @required this.left,
-    @required this.top,
-    @required this.right,
-    @required this.bottom,
     @required this.padding,
+    @required this.overflowTappable,
   }) : super(key: key);
 
   final Color color;
-  final bool left;
-  final bool top;
-  final bool right;
-  final bool bottom;
   final EdgeInsets padding;
+  final bool overflowTappable;
 
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
+      ignoring: overflowTappable,
       child: Row(
         children: <Widget>[
           Column(
