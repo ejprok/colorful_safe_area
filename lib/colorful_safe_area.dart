@@ -52,9 +52,7 @@ class ColorfulSafeArea extends StatelessWidget {
               ),
         _TopAndBottom(
           color: color,
-          left: left,
           top: top,
-          right: right,
           bottom: bottom,
         ),
         _LeftAndRight(
@@ -73,16 +71,12 @@ class _TopAndBottom extends StatelessWidget {
   const _TopAndBottom({
     Key key,
     @required this.color,
-    @required this.left,
     @required this.top,
-    @required this.right,
     @required this.bottom,
   }) : super(key: key);
 
   final Color color;
-  final bool left;
   final bool top;
-  final bool right;
   final bool bottom;
 
   @override
