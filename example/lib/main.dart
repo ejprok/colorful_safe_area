@@ -19,23 +19,24 @@ class MyHomePage extends StatelessWidget {
     int numberOfTiles = 100;
 
     return Scaffold(
-        backgroundColor: Colors.blue,
-        body: ColorfulSafeArea(
-          // allowOverflow: true,
-          // bottom: false,
-          minimum: EdgeInsets.only(top: 10, left: 20, right: 300, bottom: 200),
-          color: Colors.white.withOpacity(0.7),
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.all(10),
-                width: 300,
-                height: 200,
-                color: Colors.red,
-              );
-            },
-            itemCount: numberOfTiles,
-          ),
-        ));
+      backgroundColor: Colors.blue,
+      body: ColorfulSafeArea(
+        // allowOverflow: true,
+        bottom: false,
+        minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
+        color: Colors.white.withOpacity(0.7),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.all(10),
+              width: 300,
+              height: 200,
+              color: Colors.red,
+            );
+          },
+          itemCount: numberOfTiles,
+        ),
+      ),
+    );
   }
 }

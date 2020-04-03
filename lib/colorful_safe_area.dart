@@ -39,6 +39,15 @@ class ColorfulSafeArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData data = MediaQuery.of(context);
+    EdgeInsets padding = EdgeInsets.only(
+      left: (left) ? max(data.padding.left, minimum.left) : minimum.left,
+      top: (top) ? max(data.padding.top, minimum.top) : minimum.top,
+      right: (right) ? max(data.padding.right, minimum.right) : minimum.right,
+      bottom:
+          (bottom) ? max(data.padding.bottom, minimum.bottom) : minimum.bottom,
+    );
+
     return Stack(
       children: <Widget>[
         (allowOverflow)
@@ -56,7 +65,7 @@ class ColorfulSafeArea extends StatelessWidget {
           color: color,
           top: top,
           bottom: bottom,
-          minimum: minimum,
+          padding: padding,
         ),
         _LeftAndRight(
           color: color,
@@ -64,7 +73,7 @@ class ColorfulSafeArea extends StatelessWidget {
           top: top,
           right: right,
           bottom: bottom,
-          minimum: minimum,
+          padding: padding,
         ),
       ],
     );
@@ -77,47 +86,33 @@ class _TopAndBottom extends StatelessWidget {
     @required this.color,
     @required this.top,
     @required this.bottom,
-    @required this.minimum,
+    @required this.padding,
   }) : super(key: key);
 
   final Color color;
   final bool top;
   final bool bottom;
-  final EdgeInsets minimum;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData data = MediaQuery.of(context);
-    EdgeInsets padding = data.padding;
-    print(padding.top);
-
     return IgnorePointer(
       child: Column(
         children: <Widget>[
-          (top)
-              ? Container(
-                  height: max(padding.top, minimum.top),
-                  color: color,
-                )
-              : Container(
-                  height: 0.0,
-                  width: 0.0,
-                ),
+          Container(
+            height: padding.top,
+            color: color,
+          ),
           Expanded(
             child: Container(
               height: 0.0,
               width: 0.0,
             ),
           ),
-          (bottom)
-              ? Container(
-                  height: max(padding.bottom, minimum.bottom),
-                  color: color,
-                )
-              : Container(
-                  height: 0.0,
-                  width: 0.0,
-                ),
+          Container(
+            height: padding.bottom,
+            color: color,
+          ),
         ],
       ),
     );
@@ -132,7 +127,7 @@ class _LeftAndRight extends StatelessWidget {
     @required this.top,
     @required this.right,
     @required this.bottom,
-    @required this.minimum,
+    @required this.padding,
   }) : super(key: key);
 
   final Color color;
@@ -140,79 +135,47 @@ class _LeftAndRight extends StatelessWidget {
   final bool top;
   final bool right;
   final bool bottom;
-  final EdgeInsets minimum;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData data = MediaQuery.of(context);
-    EdgeInsets padding = data.padding;
-    print(padding.top);
-
     return IgnorePointer(
       child: Row(
         children: <Widget>[
-          (left)
-              ? Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: max(padding.top, minimum.top),
-                    ),
-                    Container(
-                      width: max(padding.left, minimum.left),
-                      height: (top)
-                          ? MediaQuery.of(context).size.height / 2 -
-                              max(padding.top, minimum.top)
-                          : MediaQuery.of(context).size.height / 2,
-                      color: color,
-                    ),
-                    Container(
-                      width: max(padding.left, minimum.left),
-                      height: (bottom)
-                          ? MediaQuery.of(context).size.height / 2 -
-                              max(padding.bottom, minimum.bottom)
-                          : MediaQuery.of(context).size.height / 2,
-                      color: color,
-                    ),
-                  ],
-                )
-              : Container(
-                  height: 0.0,
-                  width: 0.0,
-                ),
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: padding.top,
+              ),
+              Container(
+                width: padding.left,
+                height: MediaQuery.of(context).size.height -
+                    padding.top -
+                    padding.bottom,
+                color: color,
+              ),
+            ],
+          ),
           Expanded(
             child: Container(
               height: 0.0,
               width: 0.0,
             ),
           ),
-          (right)
-              ? Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: max(padding.top, minimum.top),
-                    ),
-                    Container(
-                      width: max(padding.right, minimum.right),
-                      height: (top)
-                          ? MediaQuery.of(context).size.height / 2 -
-                              max(padding.top, minimum.top)
-                          : MediaQuery.of(context).size.height / 2,
-                      color: color,
-                    ),
-                    Container(
-                      width: max(padding.right, minimum.right),
-                      height: (bottom)
-                          ? MediaQuery.of(context).size.height / 2 -
-                              max(padding.bottom, minimum.bottom)
-                          : MediaQuery.of(context).size.height / 2,
-                      color: color,
-                    ),
-                  ],
-                )
-              : Container(
-                  height: 0.0,
-                  width: 0.0,
-                ),
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: padding.top,
+              ),
+              Container(
+                width: padding.right,
+                height: MediaQuery.of(context).size.height -
+                    padding.top -
+                    padding.bottom,
+                color: color,
+              ),
+            ],
+          ),
         ],
       ),
     );
