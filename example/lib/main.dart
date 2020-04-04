@@ -22,11 +22,8 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.blue,
       resizeToAvoidBottomInset: true,
       body: ColorfulSafeArea(
-        overflowRules: OverflowRules.only(bottom: true, top: true, left: true),
-        // overflowTappable: true,
-        bottom: false,
-        minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
         color: Colors.white.withOpacity(0.7),
+        overflowRules: OverflowRules.all(true),
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(

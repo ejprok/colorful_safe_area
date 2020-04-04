@@ -42,25 +42,8 @@ class ColorfulSafeArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData data = MediaQuery.of(context);
-    EdgeInsets padding = EdgeInsets.only(
-      left: (left) ? max(data.padding.left, minimum.left) : minimum.left,
-      top: (top) ? max(data.padding.top, minimum.top) : minimum.top,
-      right: (right) ? max(data.padding.right, minimum.right) : minimum.right,
-      bottom:
-          (bottom) ? max(data.padding.bottom, minimum.bottom) : minimum.bottom,
-    );
-    if (data.padding.bottom == 0.0 &&
-        data.viewInsets.bottom != 0.0 &&
-        maintainBottomViewPadding)
-      padding = padding.copyWith(bottom: data.viewPadding.bottom);
-
-    // create new minimum
-    EdgeInsets adjustedMinimum = minimum.copyWith(
-      left: overflowRules.left ? 0 : minimum.left,
-      top: overflowRules.top ? 0 : minimum.top,
-      right: overflowRules.right ? 0 : minimum.right,
-      bottom: overflowRules.bottom ? 0 : minimum.bottom,
-    );
+    EdgeInsets padding = _createAdjustedPadding(data);
+    EdgeInsets adjustedMinimum = _createAdjustedMinimum();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -90,6 +73,25 @@ class ColorfulSafeArea extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  EdgeInsets _createAdjustedPadding(MediaQueryData data) {
+    return EdgeInsets.only(
+      left: (left) ? max(data.padding.left, minimum.left) : minimum.left,
+      top: (top) ? max(data.padding.top, minimum.top) : minimum.top,
+      right: (right) ? max(data.padding.right, minimum.right) : minimum.right,
+      bottom:
+          (bottom) ? max(data.padding.bottom, minimum.bottom) : minimum.bottom,
+    );
+  }
+
+  EdgeInsets _createAdjustedMinimum() {
+    return minimum.copyWith(
+      left: overflowRules.left ? 0 : minimum.left,
+      top: overflowRules.top ? 0 : minimum.top,
+      right: overflowRules.right ? 0 : minimum.right,
+      bottom: overflowRules.bottom ? 0 : minimum.bottom,
     );
   }
 }
@@ -150,6 +152,9 @@ class _LeftAndRight extends StatelessWidget {
   final bool overflowTappable;
   final BoxConstraints constraints;
 
+  double get _sideHeight =>
+      constraints.maxHeight - padding.top - padding.bottom;
+
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
@@ -163,7 +168,7 @@ class _LeftAndRight extends StatelessWidget {
               ),
               Container(
                 width: padding.left,
-                height: constraints.maxHeight - padding.top - padding.bottom,
+                height: _sideHeight,
                 color: color,
               ),
             ],
@@ -181,7 +186,7 @@ class _LeftAndRight extends StatelessWidget {
               ),
               Container(
                 width: padding.right,
-                height: constraints.maxHeight - padding.top - padding.bottom,
+                height: _sideHeight,
                 color: color,
               ),
             ],
