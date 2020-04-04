@@ -14,14 +14,13 @@ class ColorfulSafeArea extends StatelessWidget {
     this.left = true,
     this.top = true,
     this.right = true,
-
-    //TODO: implement minimum
     this.minimum = EdgeInsets.zero,
-
-    //TODO: implement maintainBottomViewPadding
     this.maintainBottomViewPadding = false,
     @required this.child,
-  })  : assert(left != null),
+  })  : assert(color != null),
+        assert(allowOverflow != null),
+        assert(overflowTappable != null),
+        assert(left != null),
         assert(top != null),
         assert(right != null),
         assert(bottom != null),
@@ -49,31 +48,40 @@ class ColorfulSafeArea extends StatelessWidget {
       bottom:
           (bottom) ? max(data.padding.bottom, minimum.bottom) : minimum.bottom,
     );
+    if (data.padding.bottom == 0.0 &&
+        data.viewInsets.bottom != 0.0 &&
+        maintainBottomViewPadding)
+      padding = padding.copyWith(bottom: data.viewPadding.bottom);
 
-    return Stack(
-      children: <Widget>[
-        (allowOverflow)
-            ? child
-            : SafeArea(
-                left: left,
-                top: top,
-                right: right,
-                bottom: bottom,
-                minimum: minimum,
-                maintainBottomViewPadding: maintainBottomViewPadding,
-                child: child,
-              ),
-        _TopAndBottom(
-          color: color,
-          padding: padding,
-          overflowTappable: overflowTappable,
-        ),
-        _LeftAndRight(
-          color: color,
-          padding: padding,
-          overflowTappable: overflowTappable,
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: <Widget>[
+            (allowOverflow)
+                ? child
+                : SafeArea(
+                    left: left,
+                    top: top,
+                    right: right,
+                    bottom: bottom,
+                    minimum: minimum,
+                    maintainBottomViewPadding: maintainBottomViewPadding,
+                    child: child,
+                  ),
+            _TopAndBottom(
+              color: color,
+              padding: padding,
+              overflowTappable: overflowTappable,
+            ),
+            _LeftAndRight(
+              color: color,
+              padding: padding,
+              overflowTappable: overflowTappable,
+              constraints: constraints,
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -122,11 +130,13 @@ class _LeftAndRight extends StatelessWidget {
     @required this.color,
     @required this.padding,
     @required this.overflowTappable,
+    @required this.constraints,
   }) : super(key: key);
 
   final Color color;
   final EdgeInsets padding;
   final bool overflowTappable;
+  final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +151,7 @@ class _LeftAndRight extends StatelessWidget {
               ),
               Container(
                 width: padding.left,
-                height: MediaQuery.of(context).size.height -
-                    padding.top -
-                    padding.bottom,
+                height: constraints.maxHeight - padding.top - padding.bottom,
                 color: color,
               ),
             ],
@@ -161,9 +169,7 @@ class _LeftAndRight extends StatelessWidget {
               ),
               Container(
                 width: padding.right,
-                height: MediaQuery.of(context).size.height -
-                    padding.top -
-                    padding.bottom,
+                height: constraints.maxHeight - padding.top - padding.bottom,
                 color: color,
               ),
             ],

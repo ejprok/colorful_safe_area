@@ -20,8 +20,9 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.blue,
+      resizeToAvoidBottomInset: true,
       body: ColorfulSafeArea(
-        allowOverflow: true,
+        // allowOverflow: true,
         overflowTappable: true,
         bottom: false,
         minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
@@ -33,11 +34,29 @@ class MyHomePage extends StatelessWidget {
               width: 300,
               height: 200,
               color: Colors.red,
+              child: TextField(),
             );
           },
           itemCount: numberOfTiles,
         ),
       ),
+
+      // body: SafeArea(
+      //   bottom: false,
+      //   minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
+      //   child: ListView.builder(
+      //     itemBuilder: (context, index) {
+      //       return Container(
+      //         margin: EdgeInsets.all(10),
+      //         width: 300,
+      //         height: 200,
+      //         color: Colors.red,
+      //         child: TextField(),
+      //       );
+      //     },
+      //     itemCount: numberOfTiles,
+      //   ),
+      // ),
     );
   }
 }
