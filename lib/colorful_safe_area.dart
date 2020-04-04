@@ -72,6 +72,7 @@ class ColorfulSafeArea extends StatelessWidget {
               color: color,
               padding: padding,
               overflowTappable: overflowTappable,
+              constraints: constraints,
             ),
             _LeftAndRight(
               color: color,
@@ -92,11 +93,13 @@ class _TopAndBottom extends StatelessWidget {
     @required this.color,
     @required this.padding,
     @required this.overflowTappable,
+    @required this.constraints,
   }) : super(key: key);
 
   final Color color;
   final EdgeInsets padding;
   final bool overflowTappable;
+  final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +109,7 @@ class _TopAndBottom extends StatelessWidget {
         children: <Widget>[
           Container(
             height: padding.top,
+            width: constraints.maxWidth,
             color: color,
           ),
           Expanded(
@@ -116,6 +120,7 @@ class _TopAndBottom extends StatelessWidget {
           ),
           Container(
             height: padding.bottom,
+            width: constraints.maxWidth,
             color: color,
           ),
         ],

@@ -22,7 +22,7 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.blue,
       resizeToAvoidBottomInset: true,
       body: ColorfulSafeArea(
-        // allowOverflow: true,
+        allowOverflow: true,
         overflowTappable: true,
         bottom: false,
         minimum: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 200),
