@@ -40,7 +40,7 @@ Scaffold(
 
 ## Overflow Rules
 
-If you are using a transparent color and want the child of the ```ColofulSafeArea``` to appear behind it, you can set ```overflowRules``` to define how the ```ColorfulSafeArea```'s child should appear.  The default value is ```OverflowRules.all(false)```.  The ```OverflowRules``` class works much like ```EdgeInsets```
+If you are using a transparent color and want the child of the ```ColorfulSafeArea``` to appear behind it, you can set ```overflowRules``` to define how the ```ColorfulSafeArea```'s child should appear.  The default value is ```OverflowRules.all(false)```.  The ```OverflowRules``` class works much like ```EdgeInsets```
 
 ```dart
 // allows the child to overflow behind all sides
