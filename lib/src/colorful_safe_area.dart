@@ -121,12 +121,7 @@ class _TopAndBottom extends StatelessWidget {
             width: constraints.maxWidth,
             color: color,
           ),
-          Expanded(
-            child: Container(
-              height: 0.0,
-              width: 0.0,
-            ),
-          ),
+          Spacer(),
           Container(
             height: padding.bottom,
             width: constraints.maxWidth,
@@ -173,12 +168,7 @@ class _LeftAndRight extends StatelessWidget {
               ),
             ],
           ),
-          Expanded(
-            child: Container(
-              height: 0.0,
-              width: 0.0,
-            ),
-          ),
+          Spacer(),
           Column(
             children: <Widget>[
               SizedBox(
