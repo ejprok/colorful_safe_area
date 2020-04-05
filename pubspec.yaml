@@ -1,8 +1,8 @@
 name: colorful_safe_area
 description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+version: 0.1.0
+author: Edward Prokopik <ejprok@gmail.com>
+homepage: https://github.com/ejprok/colorful_safe_area
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
