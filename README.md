@@ -1,5 +1,7 @@
 # ColorfulSafeArea
 
+[![Pub](https://img.shields.io/pub/v/colorful_safe_area.svg?style=flat-square)](https://pub.dev/packages/colorful_safe_area)
+
 A more customizable replacement for the ```SafeArea``` widget. It lets you set the color of your ```SafeArea``` without affecting the color of its child.  
 
 Use it just like a regular ```SafeArea``` widget
