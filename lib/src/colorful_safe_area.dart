@@ -76,6 +76,7 @@ class ColorfulSafeArea extends StatelessWidget {
     );
   }
 
+  // calculates the padding required
   EdgeInsets _createAdjustedPadding(MediaQueryData data) {
     return EdgeInsets.only(
       left: (left) ? max(data.padding.left, minimum.left) : minimum.left,
@@ -86,6 +87,7 @@ class ColorfulSafeArea extends StatelessWidget {
     );
   }
 
+  // ignores the minimum for a side if it is allowed to overflow
   EdgeInsets _createAdjustedMinimum() {
     return minimum.copyWith(
       left: overflowRules.left ? 0 : minimum.left,
