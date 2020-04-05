@@ -4,8 +4,9 @@
 
 A more customizable replacement for the ```SafeArea``` widget. It lets you set the color of your ```SafeArea``` without affecting the color of its child.  
 
-![Example of ColorfulSafeArea](assets/example.gif)
-
+<p align="center">
+<img  src="assets/example.gif" alt="Example of ColorfulSafeArea">
+</p>
 
 Use it just like a regular ```SafeArea``` widget
 
