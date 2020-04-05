@@ -7,6 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ColorfulSafeArea Demo',
       home: MyHomePage(),
     );
@@ -20,10 +21,9 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.blue,
-      resizeToAvoidBottomInset: true,
       body: ColorfulSafeArea(
         color: Colors.white.withOpacity(0.7),
-        overflowRules: OverflowRules.all(true),
+        overflowRules: OverflowRules.only(top: true, bottom: true),
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(
@@ -31,7 +31,6 @@ class MyHomePage extends StatelessWidget {
               width: 300,
               height: 200,
               color: Colors.red,
-              child: TextField(),
             );
           },
           itemCount: numberOfTiles,
