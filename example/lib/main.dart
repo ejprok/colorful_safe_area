@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +25,8 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.blue,
       body: ColorfulSafeArea(
         color: Colors.white.withOpacity(0.7),
-        overflowRules: OverflowRules.only(top: true, bottom: true),
+        overflowRules: OverflowRules.all(true),
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(

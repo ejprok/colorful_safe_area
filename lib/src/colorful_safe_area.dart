@@ -1,6 +1,7 @@
 library colorful_safe_area;
 
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:colorful_safe_area/src/overflow_rules.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ColorfulSafeArea extends StatelessWidget {
     this.right = true,
     this.minimum = EdgeInsets.zero,
     this.maintainBottomViewPadding = false,
+    this.filter,
     @required this.child,
   })  : assert(color != null),
         assert(overflowRules != null),
@@ -38,6 +40,7 @@ class ColorfulSafeArea extends StatelessWidget {
   final EdgeInsets minimum;
   final bool maintainBottomViewPadding;
   final Widget child;
+  final ImageFilter filter;
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +66,14 @@ class ColorfulSafeArea extends StatelessWidget {
               padding: padding,
               overflowTappable: overflowTappable,
               constraints: constraints,
+              filter: filter,
             ),
             _LeftAndRight(
               color: color,
               padding: padding,
               overflowTappable: overflowTappable,
               constraints: constraints,
+              filter: filter,
             ),
           ],
         );
@@ -105,12 +110,14 @@ class _TopAndBottom extends StatelessWidget {
     @required this.padding,
     @required this.overflowTappable,
     @required this.constraints,
+    this.filter,
   }) : super(key: key);
 
   final Color color;
   final EdgeInsets padding;
   final bool overflowTappable;
   final BoxConstraints constraints;
+  final ImageFilter filter;
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +125,39 @@ class _TopAndBottom extends StatelessWidget {
       ignoring: overflowTappable,
       child: Column(
         children: <Widget>[
-          Container(
-            height: padding.top,
-            width: constraints.maxWidth,
-            color: color,
-          ),
+          (filter != null)
+              ? ClipRect(
+                  child: BackdropFilter(
+                    filter: filter,
+                    child: Container(
+                      height: padding.top,
+                      width: constraints.maxWidth,
+                      color: color,
+                    ),
+                  ),
+                )
+              : Container(
+                  height: padding.top,
+                  width: constraints.maxWidth,
+                  color: color,
+                ),
           Spacer(),
-          Container(
-            height: padding.bottom,
-            width: constraints.maxWidth,
-            color: color,
-          ),
+          (filter != null)
+              ? ClipRect(
+                  child: BackdropFilter(
+                    filter: filter,
+                    child: Container(
+                      height: padding.bottom,
+                      width: constraints.maxWidth,
+                      color: color,
+                    ),
+                  ),
+                )
+              : Container(
+                  height: padding.bottom,
+                  width: constraints.maxWidth,
+                  color: color,
+                ),
         ],
       ),
     );
@@ -142,12 +171,14 @@ class _LeftAndRight extends StatelessWidget {
     @required this.padding,
     @required this.overflowTappable,
     @required this.constraints,
+    this.filter,
   }) : super(key: key);
 
   final Color color;
   final EdgeInsets padding;
   final bool overflowTappable;
   final BoxConstraints constraints;
+  final ImageFilter filter;
 
   double get _sideHeight =>
       constraints.maxHeight - padding.top - padding.bottom;
@@ -163,11 +194,22 @@ class _LeftAndRight extends StatelessWidget {
               SizedBox(
                 height: padding.top,
               ),
-              Container(
-                width: padding.left,
-                height: _sideHeight,
-                color: color,
-              ),
+              (filter != null)
+                  ? ClipRect(
+                      child: BackdropFilter(
+                        filter: filter,
+                        child: Container(
+                          width: padding.left,
+                          height: _sideHeight,
+                          color: color,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: padding.left,
+                      height: _sideHeight,
+                      color: color,
+                    ),
             ],
           ),
           Spacer(),
@@ -176,11 +218,22 @@ class _LeftAndRight extends StatelessWidget {
               SizedBox(
                 height: padding.top,
               ),
-              Container(
-                width: padding.right,
-                height: _sideHeight,
-                color: color,
-              ),
+              (filter != null)
+                  ? ClipRect(
+                      child: BackdropFilter(
+                        filter: filter,
+                        child: Container(
+                          width: padding.right,
+                          height: _sideHeight,
+                          color: color,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: padding.right,
+                      height: _sideHeight,
+                      color: color,
+                    ),
             ],
           ),
         ],
