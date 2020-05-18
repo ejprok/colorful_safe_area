@@ -1,7 +1,6 @@
 name: colorful_safe_area
 description: A more customizable replacement for the SafeArea widget. It lets you set the color of your SafeArea without affecting the color of its child.  
 version: 0.2.0
-author: Edward Prokopik <ejprok@gmail.com>
 homepage: https://github.com/ejprok/colorful_safe_area
 
 environment:
