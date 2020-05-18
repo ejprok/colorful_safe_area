@@ -7,3 +7,6 @@
 
 ## 0.1.2
 * Add comments for padding calculations
+
+## 0.2.0
+* Add blur effect
