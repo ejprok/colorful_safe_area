@@ -59,6 +59,20 @@ overflowRules: OverflowRules.only(left: true, bottom: true)
 overflowRules: OverflowRules.symmetric(vertical: true)
 ```
 
+## Blurring Overflow Area
+
+If you want to apply a blur effect to the ```ColorfulSafeArea```, you can apply a filter.
+
+```dart
+Scaffold(
+    body: ColorfulSafeArea(
+    overflowRules: OverflowRules.all(true),
+    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+    child: SomeWidget(),
+    ),
+);
+```
+
 ## Making Overflow Area Interactive
 
 When you set ```overflowRules``` and would like for the parts of the child that have overflowed to be interactable behind the ```ColorfulSafeArea```, you can set ```overflowTappable``` to ```true```.  
