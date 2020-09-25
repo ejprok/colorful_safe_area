@@ -53,10 +53,10 @@ class ColorfulSafeArea extends StatelessWidget {
         return Stack(
           children: <Widget>[
             SafeArea(
-              left: !overflowRules.left,
-              top: !overflowRules.top,
-              right: !overflowRules.right,
-              bottom: !overflowRules.bottom,
+              left: !overflowRules.left && left,
+              top: !overflowRules.top && top,
+              right: !overflowRules.right && right,
+              bottom: !overflowRules.bottom && bottom,
               minimum: adjustedMinimum,
               maintainBottomViewPadding: maintainBottomViewPadding,
               child: child,
