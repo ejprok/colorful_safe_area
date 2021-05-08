@@ -1,16 +1,48 @@
-# example
+# ColorfulSafeArea - Example
 
-A new Flutter project.
+```dart
+import 'dart:ui';
 
-## Getting Started
+import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:flutter/material.dart';
 
-This project is a starting point for a Flutter application.
+void main() => runApp(MyApp());
 
-A few resources to get you started if this is your first Flutter project:
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'ColorfulSafeArea Demo',
+      home: MyHomePage(),
+    );
+  }
+}
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    int numberOfTiles = 100;
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: ColorfulSafeArea(
+        color: Colors.white.withOpacity(0.7),
+        overflowRules: OverflowRules.all(true),
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.all(10),
+              width: 300,
+              height: 200,
+              color: Colors.red,
+            );
+          },
+          itemCount: numberOfTiles,
+        ),
+      ),
+    );
+  }
+}
+```
