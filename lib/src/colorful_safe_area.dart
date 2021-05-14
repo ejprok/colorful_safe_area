@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class ColorfulSafeArea extends StatelessWidget {
   const ColorfulSafeArea({
-    Key key,
+    Key? key,
     this.color = Colors.transparent,
     this.overflowRules = const OverflowRules.all(false),
     this.overflowTappable = false,
@@ -19,15 +19,8 @@ class ColorfulSafeArea extends StatelessWidget {
     this.minimum = EdgeInsets.zero,
     this.maintainBottomViewPadding = false,
     this.filter,
-    @required this.child,
-  })  : assert(color != null),
-        assert(overflowRules != null),
-        assert(overflowTappable != null),
-        assert(left != null),
-        assert(top != null),
-        assert(right != null),
-        assert(bottom != null),
-        super(key: key);
+    required this.child,
+  }) : super(key: key);
 
   final Color color;
   final OverflowRules overflowRules;
@@ -40,7 +33,7 @@ class ColorfulSafeArea extends StatelessWidget {
   final EdgeInsets minimum;
   final bool maintainBottomViewPadding;
   final Widget child;
-  final ImageFilter filter;
+  final ImageFilter? filter;
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +98,11 @@ class ColorfulSafeArea extends StatelessWidget {
 
 class _TopAndBottom extends StatelessWidget {
   const _TopAndBottom({
-    Key key,
-    @required this.color,
-    @required this.padding,
-    @required this.overflowTappable,
-    @required this.constraints,
+    Key? key,
+    required this.color,
+    required this.padding,
+    required this.overflowTappable,
+    required this.constraints,
     this.filter,
   }) : super(key: key);
 
@@ -117,7 +110,7 @@ class _TopAndBottom extends StatelessWidget {
   final EdgeInsets padding;
   final bool overflowTappable;
   final BoxConstraints constraints;
-  final ImageFilter filter;
+  final ImageFilter? filter;
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +121,7 @@ class _TopAndBottom extends StatelessWidget {
           (filter != null)
               ? ClipRect(
                   child: BackdropFilter(
-                    filter: filter,
+                    filter: filter!,
                     child: Container(
                       height: padding.top,
                       width: constraints.maxWidth,
@@ -145,7 +138,7 @@ class _TopAndBottom extends StatelessWidget {
           (filter != null)
               ? ClipRect(
                   child: BackdropFilter(
-                    filter: filter,
+                    filter: filter!,
                     child: Container(
                       height: padding.bottom,
                       width: constraints.maxWidth,
@@ -166,11 +159,11 @@ class _TopAndBottom extends StatelessWidget {
 
 class _LeftAndRight extends StatelessWidget {
   const _LeftAndRight({
-    Key key,
-    @required this.color,
-    @required this.padding,
-    @required this.overflowTappable,
-    @required this.constraints,
+    Key? key,
+    required this.color,
+    required this.padding,
+    required this.overflowTappable,
+    required this.constraints,
     this.filter,
   }) : super(key: key);
 
@@ -178,7 +171,7 @@ class _LeftAndRight extends StatelessWidget {
   final EdgeInsets padding;
   final bool overflowTappable;
   final BoxConstraints constraints;
-  final ImageFilter filter;
+  final ImageFilter? filter;
 
   double get _sideHeight =>
       constraints.maxHeight - padding.top - padding.bottom;
@@ -197,7 +190,7 @@ class _LeftAndRight extends StatelessWidget {
               (filter != null)
                   ? ClipRect(
                       child: BackdropFilter(
-                        filter: filter,
+                        filter: filter!,
                         child: Container(
                           width: padding.left,
                           height: _sideHeight,
@@ -221,7 +214,7 @@ class _LeftAndRight extends StatelessWidget {
               (filter != null)
                   ? ClipRect(
                       child: BackdropFilter(
-                        filter: filter,
+                        filter: filter!,
                         child: Container(
                           width: padding.right,
                           height: _sideHeight,

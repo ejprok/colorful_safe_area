@@ -8,12 +8,12 @@ A more customizable replacement for the ```SafeArea``` widget. It lets you set t
 <img  src="assets/example.gif" alt="Example of ColorfulSafeArea">
 </p>
 
-Use it just like a regular ```SafeArea``` widget
+Use it just like a regular ```SafeArea``` widget.
 
 ```dart
 Scaffold(
     body: ColorfulSafeArea(
-    child: SomeWidget(),
+        child: SomeWidget(),
     ),
 );
 ```
@@ -25,8 +25,8 @@ The color of ```ColorfulSafeArea``` widgets are transparent by default. To chang
 ```dart
 Scaffold(
     body: ColorfulSafeArea(
-    color: Colors.red,
-    child: SomeWidget(),
+        color: Colors.red,
+        child: SomeWidget(),
     ),
 );
 ```
@@ -38,15 +38,15 @@ You can use any color that has transparency
 ```dart
 Scaffold(
     body: ColorfulSafeArea(
-    color: Colors.red.withOpacity(0.7),
-    child: SomeWidget(),
+        color: Colors.red.withOpacity(0.7),
+        child: SomeWidget(),
     ),
 );
 ```
 
 ## Overflow Rules
 
-If you are using a transparent color and want the child of the ```ColorfulSafeArea``` to appear behind it, you can set ```overflowRules``` to define how the ```ColorfulSafeArea```'s child should appear.  The default value is ```OverflowRules.all(false)```.  The ```OverflowRules``` class works much like ```EdgeInsets```
+If you are using a transparent color and want the child of the ```ColorfulSafeArea``` to appear behind it, you can set ```overflowRules``` to define how the ```ColorfulSafeArea```'s child should appear.  The default value is ```OverflowRules.all(false)```.  The ```OverflowRules``` class works much like ```EdgeInsets```.
 
 ```dart
 // allows the child to overflow behind all sides
@@ -66,9 +66,9 @@ If you want to apply a blur effect to the ```ColorfulSafeArea```, you can apply 
 ```dart
 Scaffold(
     body: ColorfulSafeArea(
-    overflowRules: OverflowRules.all(true),
-    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-    child: SomeWidget(),
+        overflowRules: OverflowRules.all(true),
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: SomeWidget(),
     ),
 );
 ```
@@ -80,9 +80,9 @@ When you set ```overflowRules``` and would like for the parts of the child that 
 ```dart
 Scaffold(
     body: ColorfulSafeArea(
-    overflowRules: OverflowRules.all(true),
-    overflowTappable: true
-    child: SomeWidget(),
+        overflowRules: OverflowRules.all(true),
+        overflowTappable: true
+        child: SomeWidget(),
     ),
 );
 ```
