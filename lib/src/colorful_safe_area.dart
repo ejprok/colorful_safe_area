@@ -10,6 +10,8 @@ class ColorfulSafeArea extends StatelessWidget {
   const ColorfulSafeArea({
     Key? key,
     this.color = Colors.transparent,
+    this.topColor = Colors.transparent,
+    this.bottomColor = Colors.transparent,
     this.overflowRules = const OverflowRules.all(false),
     this.overflowTappable = false,
     this.bottom = true,
@@ -23,6 +25,8 @@ class ColorfulSafeArea extends StatelessWidget {
   }) : super(key: key);
 
   final Color color;
+  final Color topColor;
+  final Color bottomColor;
   final OverflowRules overflowRules;
   final bool overflowTappable;
 
@@ -54,8 +58,15 @@ class ColorfulSafeArea extends StatelessWidget {
               maintainBottomViewPadding: maintainBottomViewPadding,
               child: child,
             ),
-            _TopAndBottom(
-              color: color,
+            _Top(
+              color: topColor != Colors.transparent ? topColor : color,
+              padding: padding,
+              overflowTappable: overflowTappable,
+              constraints: constraints,
+              filter: filter,
+            ),
+            _Bottom(
+              color: bottomColor != Colors.transparent ? bottomColor : color,
               padding: padding,
               overflowTappable: overflowTappable,
               constraints: constraints,
@@ -96,8 +107,8 @@ class ColorfulSafeArea extends StatelessWidget {
   }
 }
 
-class _TopAndBottom extends StatelessWidget {
-  const _TopAndBottom({
+class _Top extends StatelessWidget {
+  const _Top({
     Key? key,
     required this.color,
     required this.padding,
@@ -134,6 +145,34 @@ class _TopAndBottom extends StatelessWidget {
                   width: constraints.maxWidth,
                   color: color,
                 ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Bottom extends StatelessWidget {
+  const _Bottom({
+    Key? key,
+    required this.color,
+    required this.padding,
+    required this.overflowTappable,
+    required this.constraints,
+    this.filter,
+  }) : super(key: key);
+
+  final Color color;
+  final EdgeInsets padding;
+  final bool overflowTappable;
+  final BoxConstraints constraints;
+  final ImageFilter? filter;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      ignoring: overflowTappable,
+      child: Column(
+        children: <Widget>[
           Spacer(),
           (filter != null)
               ? ClipRect(
